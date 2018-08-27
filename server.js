@@ -36,3 +36,9 @@ var products[
 		category: 'Electronics',
 	}
 ]
+
+app.get('/'(request,response)=>{
+	response.send('Product details')
+})
+
+app.listen(4040,()=> console.log('Express server at 4040'))
