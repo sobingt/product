@@ -59,11 +59,35 @@ app.get('/api/products/:id',(request,response)=>{
 app.post('/api/products',(request,response)=>{
 	console.log(request.body)
 	products.push({
-	
+
 		id: request.body.id,
 		name: request.body.name,
 		category: request.body.category	
 	})
+	response.json(products)
+})
+
+app.put('/api/products/:id',(request,response)=>{
+  let prod
+  products.forEach(product =>{
+  	if(product.id == request.params.id)
+  	{
+  		product.name= request.body.name,
+  		product.category= request.body.category,
+  		product.id= request.body.id
+  	}
+  });
+  response.json(products)
+})
+
+app.del('/api/products/:id',(request,response)=>{
+	let prod;
+	products.forEach((product,index) =>{
+		if(product.id == request.params.id)
+		{
+			products.splice(index,1)
+		}
+	});
 	response.json(products)
 })
 app.listen(4040,()=> console.log('Express server at 4040'))
