@@ -45,4 +45,15 @@ app.get('/api/products',(request,response)=>{
 	response.json(products)
 })
 
+app.get('/api/products/:id',(request,response)=>{
+  let prod
+  products.forEach(product =>{
+  	if(product.id == request.params.id)
+  	{
+       prod = product
+  	}
+  });
+  response.json(prod)
+})
+
 app.listen(4040,()=> console.log('Express server at 4040'))
