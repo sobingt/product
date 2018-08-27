@@ -56,4 +56,14 @@ app.get('/api/products/:id',(request,response)=>{
   response.json(prod)
 })
 
+app.post('/api/products',(request,response)=>{
+	console.log(request.body)
+	products.push({
+	
+		id: request.body.id,
+		name: request.body.name,
+		category: request.body.category	
+	})
+	response.json(products)
+})
 app.listen(4040,()=> console.log('Express server at 4040'))
