@@ -4,7 +4,7 @@ const bodyParser = require('body-parser')
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json())
-var products[
+var products=[
 	{
 		id: 1,
 		name: 'headphones',
@@ -37,8 +37,12 @@ var products[
 	}
 ]
 
-app.get('/'(request,response)=>{
+app.get('/',(request,response)=>{
 	response.send('Product details')
+})
+
+app.get('/api/products',(request,response)=>{
+	response.json(products)
 })
 
 app.listen(4040,()=> console.log('Express server at 4040'))
