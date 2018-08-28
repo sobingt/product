@@ -55,62 +55,9 @@ app.get('/',(request,response)=>{
 	response.send('Product details')
 })
 
-/*app.get('/api/products',(request,response)=>{
-	response.json(products)
-})
 
-app.get('/api/products/:id',(request,response)=>{
-  let prod
-  products.forEach(product =>{
-  	if(product.id == request.params.id)
-  	{
-       prod = product
-  	}
-  });
-  response.json(prod)
-})*/
-
-/*app.post('/api/products',(request,response)=>{
-	console.log(request.body)
-	products.push({
-
-		id: request.body.id,
-		name: request.body.name,
-		category: request.body.category	
-	})
-	response.json(products)
-})
-
-app.put('/api/products/:id',(request,response)=>{
-  let prod
-  products.forEach(product =>{
-  	if(product.id == request.params.id)
-  	{
-  		product.name= request.body.name,
-  		product.category= request.body.category,
-  		product.id= request.body.id
-  	}
-  });
-  response.json(products)
-})
-
-app.del('/api/products/:id',(request,response)=>{
-	let prod;
-	products.forEach((product,index) =>{
-		if(product.id == request.params.id)
-		{
-			products.splice(index,1)
-		}
-	});
-	response.json(products)
-})*/
 app.get('/api/bulk-upload',(request,response)=>{
    Products.insertMany(productsArray).then(function(productarray) {
-   	/*if(error)
-            response.json({
-                error: error,
-                status: 500
-            })*/
         response.json(productarray)
    }).catch(function(error){
    	if(error)
@@ -133,9 +80,16 @@ app.get('/api/product', (request, response) => {
     })
 })
 
-/*app.get('/api/product/array', (request, response) => {
-    response.json(studentArray)
-})*/
+app.get('/api/product/:id',(request, response) =>{
+	Products.findById(request.params.id,(error, products)=>{
+		if(error)
+            response.json({
+                error: error,
+                status: 500
+            })
+        response.json(products)
+	})
+})
 
 app.post('/api/product',(request,response)=>{ 
 	console.log(request.body)
@@ -147,5 +101,16 @@ app.post('/api/product',(request,response)=>{
         console.log('Added successfully')
         response.json(product)
     })
+})
+
+app.put('/api/product/:id',(request, response) =>{
+	Products.updateOne({ _id: request.params.id },{name: request.body.name, category: request.body.category},{},(error, products)=>{
+		if(error)
+            response.json({
+                error: error,
+                status: 500
+            })
+        response.json(products)
+	})
 })
 app.listen(4040,()=> console.log('Express server at 4040'))
