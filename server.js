@@ -55,7 +55,7 @@ app.get('/',(request,response)=>{
 	response.send('Product details')
 })
 
-app.get('/api/products',(request,response)=>{
+/*app.get('/api/products',(request,response)=>{
 	response.json(products)
 })
 
@@ -68,7 +68,7 @@ app.get('/api/products/:id',(request,response)=>{
   	}
   });
   response.json(prod)
-})
+})*/
 
 /*app.post('/api/products',(request,response)=>{
 	console.log(request.body)
@@ -103,6 +103,38 @@ app.del('/api/products/:id',(request,response)=>{
 		}
 	});
 	response.json(products)
+})*/
+app.get('/api/bulk-upload',(request,response)=>{
+   Products.insertMany(productsArray).then(function(productarray) {
+   	/*if(error)
+            response.json({
+                error: error,
+                status: 500
+            })*/
+        response.json(productarray)
+   }).catch(function(error){
+   	if(error)
+            response.json({
+                error: error,
+                status: 500
+            })
+        response.json(productarray)
+   })	
+   })
+
+app.get('/api/product', (request, response) => {
+    Products.find().exec((error, products)=>{
+        if(error)
+            response.json({
+                error: error,
+                status: 500
+            })
+        response.json(products)
+    })
+})
+
+/*app.get('/api/product/array', (request, response) => {
+    response.json(studentArray)
 })*/
 
 app.post('/api/product',(request,response)=>{ 
