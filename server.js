@@ -113,4 +113,16 @@ app.put('/api/product/:id',(request, response) =>{
         response.json(products)
 	})
 })
+
+app.del('/api/product/:id',(request, response) =>{
+     Products.findOneAndDelete({_id: request.params.id},(error,deleteId)=>{
+     	if(error)
+            response.json({
+                error: error,
+                status: 500
+            })
+        response.json({message: "deleted successfully"})
+     })
+
+})
 app.listen(4040,()=> console.log('Express server at 4040'))
